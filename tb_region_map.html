@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_9b8f710fc1547b7e47457426fbb770ea {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+<div style='position: fixed; 
+            top: 10px; right: 10px; 
+            z-index: 9999; 
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);'>
+    <h4>Select Year:</h4>
+    <select id="year-selector" onchange="updateYear(this.value)">
+<option value="1990">1990</option><option value="1991">1991</option><option value="1992">1992</option><option value="1993">1993</option><option value="1994">1994</option><option value="1995">1995</option><option value="1996">1996</option><option value="1997">1997</option><option value="1998">1998</option><option value="1999">1999</option><option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option><option value="2003">2003</option><option value="2004">2004</option><option value="2005">2005</option><option value="2006">2006</option><option value="2007">2007</option><option value="2008">2008</option><option value="2009">2009</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option>
+    </select>
+</div>
+
+<script>
+    var layers = {};
+layers["1990"] = L.layerGroup();layers["1991"] = L.layerGroup();layers["1992"] = L.layerGroup();layers["1993"] = L.layerGroup();layers["1994"] = L.layerGroup();layers["1995"] = L.layerGroup();layers["1996"] = L.layerGroup();layers["1997"] = L.layerGroup();layers["1998"] = L.layerGroup();layers["1999"] = L.layerGroup();layers["2000"] = L.layerGroup();layers["2001"] = L.layerGroup();layers["2002"] = L.layerGroup();layers["2003"] = L.layerGroup();layers["2004"] = L.layerGroup();layers["2005"] = L.layerGroup();layers["2006"] = L.layerGroup();layers["2007"] = L.layerGroup();layers["2008"] = L.layerGroup();layers["2009"] = L.layerGroup();layers["2010"] = L.layerGroup();layers["2011"] = L.layerGroup();layers["2012"] = L.layerGroup();layers["2013"] = L.layerGroup();
+    function updateYear(year) {
+        for (var y in layers) {
+            map.removeLayer(layers[y]);
+        }
+        map.addLayer(layers[year]);
+    }
+    
+    updateYear("2013");
+</script>
+    
+<div style='position: fixed; 
+            bottom: 50px; left: 10px; 
+            z-index: 9999; 
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: Arial;
+            font-size: 12px;
+            max-width: 300px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);'>
+    <h4>WHO Region Abbreviations:</h4>
+    <ul style="padding-left: 20px; margin-bottom: 0;">
+        <li><strong>AFR</strong> - African Region (Sub-Saharan Africa)</li>
+        <li><strong>AMR</strong> - Region of the Americas (North, Central, and South America)</li>
+        <li><strong>EMR</strong> - Eastern Mediterranean Region (Middle East, North Africa, parts of Asia)</li>
+        <li><strong>EUR</strong> - European Region (Europe and some Central Asian nations)</li>
+        <li><strong>SEAR</strong> - South-East Asia Region (South and South-East Asia)</li>
+        <li><strong>WPR</strong> - Western Pacific Region (East Asia and Pacific Islands)</li>
+    </ul>
+</div>
+    
+            <div class="folium-map" id="map_9b8f710fc1547b7e47457426fbb770ea" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_9b8f710fc1547b7e47457426fbb770ea = L.map(
+                "map_9b8f710fc1547b7e47457426fbb770ea",
+                {
+                    center: [0.0, 20.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 3,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_10e82ff91bb30291f77061aeb64fe277 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_10e82ff91bb30291f77061aeb64fe277.addTo(map_9b8f710fc1547b7e47457426fbb770ea);
+        
+</script>
+</html>
