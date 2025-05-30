@@ -904,10 +904,9 @@ def update_comparison_chart(selected_countries, selected_metric):
 # Callback for region bar chart
 @callback(
     Output('region-bar-chart', 'figure'),
-    [Input('year-slider', 'value'),
-     Input('metric-selector', 'value')]
+    [Input('year-slider', 'value')]
 )
-def update_region_bar_chart(selected_years, selected_metric):
+def update_region_bar_chart(selected_years):
     start_year, end_year = int(selected_years[0]), int(selected_years[1])
     
     # Get filtered data using cached function
@@ -920,8 +919,8 @@ def update_region_bar_chart(selected_years, selected_metric):
         'incidence_per_100k': 'mean'
     }).reset_index()
     
-    # Sort by the selected metric
-    agg_data = agg_data.sort_values(by=selected_metric, ascending=False)
+    # Sort by prevalence (static sorting)
+    agg_data = agg_data.sort_values(by='prevalence_per_100k', ascending=False)
     
     # Create grouped bar chart
     fig = go.Figure()
