@@ -44,15 +44,15 @@ regions = sorted(tb_data['region'].unique())
 countries = sorted(tb_data['country'].unique())
 
 # Create a function to calculate percent change
-def calc_percent_change(df, country, metric, year1, year2):
-    try:
-        val1 = df[(df['country'] == country) & (df['year'] == year1)][metric].iloc[0]
-        val2 = df[(df['country'] == country) & (df['year'] == year2)][metric].iloc[0]
-        if val1 == 0:
-            return "N/A"
-        return ((val2 - val1) / val1) * 100
-    except:
-        return "N/A"
+# def calc_percent_change(df, country, metric, year1, year2):
+#     try:
+#         val1 = df[(df['country'] == country) & (df['year'] == year1)][metric].iloc[0]
+#         val2 = df[(df['country'] == country) & (df['year'] == year2)][metric].iloc[0]
+#         if val1 == 0:
+#             return "N/A"
+#         return ((val2 - val1) / val1) * 100
+#     except:
+#         return "N/A"
 
 # External stylesheets
 external_stylesheets = [
@@ -481,13 +481,22 @@ app.layout = html.Div([
 # Callback for dynamic title
 @callback(
     Output('key-indicators-title', 'children'),
-    [Input('country-filter', 'value')]
+    [Input('country-filter', 'value'),
+     Input('year-slider', 'value')]
 )
-def update_key_indicators_title(country):
-    if not country or country == 'Global':
-        return "Global TB Indicators"
+def update_key_indicators_title(country, years_range):
+    start_year, end_year = int(years_range[0]), int(years_range[1])
+    
+    # Create year comparison text
+    if end_year > start_year:
+        year_comparison = f" ({end_year} vs {end_year-1})"
     else:
-        return f"TB Indicators - {country}"
+        year_comparison = f" ({end_year})"
+    
+    if not country or country == 'Global':
+        return f"Global TB Indicators{year_comparison}"
+    else:
+        return f"TB Indicators - {country}{year_comparison}"
 
 # Callback for key metrics
 @callback(
