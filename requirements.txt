@@ -1,0 +1,6 @@
+dash==2.14.1
+pandas==2.0.3
+plotly==5.17.0
+flask-caching==2.1.0
+gunicorn==21.2.0
+numpy==1.24.3
