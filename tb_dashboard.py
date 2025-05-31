@@ -262,6 +262,22 @@ app.layout = html.Div([
                     ),
                 ], className="mb-3"),
                 
+                # TB Metric Selector
+                html.Div([
+                    html.Label("Select TB Metric", className="filter-label"),
+                    dcc.RadioItems(
+                        id='metric-selector',
+                        options=[
+                            {'label': 'TB Prevalence', 'value': 'prevalence_per_100k'},
+                            {'label': 'TB Mortality', 'value': 'mortality_per_100k'},
+                            {'label': 'TB Incidence', 'value': 'incidence_per_100k'}
+                        ],
+                        value='prevalence_per_100k',
+                        style={'fontSize': '14px'},
+                        className="mt-2"
+                    ),
+                ], className="mb-3"),
+                
             ], className="p-3 sidebar-filters rounded shadow-sm sidebar-container", style={'overflow': 'visible'})
         ], style={'width': '280px', 'minWidth': '280px', 'marginRight': '20px', 'overflow': 'visible'}, className="sidebar-container"),
         
@@ -276,22 +292,6 @@ app.layout = html.Div([
                           className="text-muted small mt-2 mb-0")
                 ], className="row mt-2 pl-3")
             ], className="mb-4 p-3 bg-white rounded shadow-sm"),
-            
-            # Metric selector (moved outside of tabs to apply globally)
-            html.Div([
-                html.H5("Select TB Metric", className="text-secondary mb-2"),
-                dcc.RadioItems(
-                    id='metric-selector',
-                    options=[
-                        {'label': 'TB Prevalence', 'value': 'prevalence_per_100k'},
-                        {'label': 'TB Mortality', 'value': 'mortality_per_100k'},
-                        {'label': 'TB Incidence', 'value': 'incidence_per_100k'}
-                    ],
-                    value='prevalence_per_100k',
-                    inline=True,
-                    className="mb-3"
-                )
-            ], className="mb-3 p-3 bg-white rounded shadow-sm"),
             
             # Main content tabs
             dcc.Tabs([
@@ -796,7 +796,7 @@ def update_region_distribution(selected_years, selected_metric):
     # Update layout
     fig.update_layout(
         title=dict(
-            text=f'TB {selected_metric.split("_")[0].capitalize()} by Region',
+            text=f'TB {selected_metric.split("_")[0].capitalize()} by Region ({start_year}-{end_year})',
             x=0.5,
             xanchor='center'
         ),
@@ -842,14 +842,14 @@ def update_table(selected_regions, selected_years):
     # Create dynamic title based on selected regions
     if selected_regions and len(selected_regions) > 0:
         if len(selected_regions) == 1:
-            title = f'Data Table - {selected_regions[0]}'
+            title = f'Data Table - {selected_regions[0]} ({start_year}-{end_year})'
         elif len(selected_regions) <= 3:
             regions_str = ', '.join(selected_regions)
-            title = f'Data Table - {regions_str}'
+            title = f'Data Table - {regions_str} ({start_year}-{end_year})'
         else:
-            title = f'Data Table - {len(selected_regions)} Selected Regions'
+            title = f'Data Table - {len(selected_regions)} Selected Regions ({start_year}-{end_year})'
     else:
-        title = 'Data Table - All Regions'
+        title = f'Data Table - All Regions ({start_year}-{end_year})'
     
     return agg_data.to_dict('records'), title
 
